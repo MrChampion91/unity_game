@@ -2,12 +2,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 
-
-
 public class CapsuleProperties : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f; // Максимальное значение прочности
-    [SerializeField] private float maxOxygen = 100f; // Максимальное значение кислорода
+    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float maxOxygen = 100f;
 
     private float currentHealth; // Текущее значение прочности
     private float currentOxygen; // Текущее значение кислорода
@@ -23,7 +21,7 @@ public class CapsuleProperties : MonoBehaviour
     {
         // Проверяем, что объект, с которым столкнулись, имеет определенный тег
         if (collision.gameObject.tag == "Oxigen")
-        {    
+        {
             currentOxygen += 1;
         }
     }
@@ -66,7 +64,7 @@ public class CapsuleProperties : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             // Если столкнулись с врагом, уменьшаем здоровье игрока
-            currentHealth -= collision.gameObject.GetComponent<MonsterBehaviour>().damage;
+            currentHealth -= collision.gameObject.GetComponent<MonsterBehaviour>().GetDamage();
             // Обновляем значение здоровья на экране
             healthText.text = "healt - " + currentHealth;
         }
@@ -80,9 +78,11 @@ public class CapsuleProperties : MonoBehaviour
     {
         if (SaveGame.Instance != null && SaveGame.Instance.GetType().GetMethod("UpdateScore") != null)
         {
-
-            SaveGame.Instance.UpdateScore(Wallet.coins);
+            //TODO save game
+            //SaveGame.Instance.SaveData(Wallet.GetCoins();
+           
         }
+
         SceneManager.LoadScene("MainMenu"); // Загружаем сцену GameOver при конце игры
     }
 }

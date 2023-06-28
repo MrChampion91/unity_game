@@ -68,15 +68,14 @@
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\SO\NEW_Data.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
+    <Compile Include="Assets\Scripts\Controller\DiveBooster.cs" />
     <Compile Include="Assets\Scripts\CapsuleProperties.cs" />
     <Compile Include="Assets\Scripts\Save\GameData.cs" />
     <Compile Include="Assets\Scripts\Controller\GunController.cs" />
     <Compile Include="Assets\Scripts\Controller\CapsuleController.cs" />
     <Compile Include="Assets\Scripts\ADS\AdsInitializer.cs" />
     <Compile Include="Assets\Scripts\Controller\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\DiveBooster.cs" />
     <Compile Include="Assets\Scripts\Stuff\Treasure.cs" />
-    <Compile Include="Assets\Scripts\Controller\CameraSwap.cs" />
     <Compile Include="Assets\Scripts\Wallet\Wallet.cs" />
     <Compile Include="Assets\Scripts\#Old\GameManager.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />

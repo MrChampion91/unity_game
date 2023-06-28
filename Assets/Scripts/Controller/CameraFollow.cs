@@ -4,42 +4,40 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target; // объект, за которым должна следовать камера
-    [SerializeField] private float distance = 18.0f; // расстояние между камерой и объектом
-
-    [SerializeField] private float height = -5.0f; // высота камеры над объектом
-    [SerializeField] private float smoothSpeed = 0.125f; // скорость следования камеры за объектом
+    private Transform target; // transform of capsula player
+    [SerializeField] private float distance = 18.0f; // distance bitwine player
+    [SerializeField] private float height = -5.0f; // high above player
+    [SerializeField] private float smoothSpeed = 0.125f; // follow speed
     [SerializeField] private Vector3 speedDistance = new Vector3(0, 0, 0);
 
     private Vector3 targetPosition;
-
     public VariableJoystick variableJoystick;
 
-
-
+    public void Awake()
+    {
+        target = GameObject.FindWithTag("Player").transform;
+    }
     private void FixedUpdate()
+    {
+        FollowToPlayer();
+    }
+
+    private void FollowToPlayer() 
     {
         //float vertical = Input.GetAxis("Vertical");
         float vertical = variableJoystick.Vertical;
-
-
-        // вычисляем позицию, куда должна переместиться камера
-        targetPosition = target.position - target.forward * distance + target.up * height; //transform.up вместо таргет up
-
+        targetPosition = target.position - target.forward * distance + target.up * height;
         //transform.LookAt(target);
 
         if (vertical != 0)
         {
-            // Плавно перемещаем камеру к новой позиции с заданной скоростью.
+            // make camera farr with high speed
             transform.position = Vector3.Lerp(transform.position, targetPosition + speedDistance, smoothSpeed * Time.deltaTime);
-
         }
-
         else
         {
-            // плавно перемещаем камеру к целевой позиции
+            // normal speed without velocity
             transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
-            
         }
     }
 }

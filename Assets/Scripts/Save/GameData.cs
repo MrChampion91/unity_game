@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class GameData
+﻿public class GameData
 {
     public int coins;
     public int almaz;
@@ -11,7 +9,8 @@ public class GameData
 
     public int color;
 
-    // Добавьте другие необходимые поля для сохранения
+    public int current;
+    public string currentGameScene;
 
     public void ResetData()
     {
@@ -22,4 +21,5 @@ public class GameData
         color = 0;
         lastLevel = "Scene1";
     }
+
 }

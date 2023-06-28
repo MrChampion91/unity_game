@@ -1,43 +1,41 @@
 using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(DiveBooster))]
 public class CapsuleController : MonoBehaviour
 {
-    public float moveSpeed = 10f;  // скорость движения капсулы
-    public float rotationSpeed = 120f;  // скорость поворота капсулы
-    public float diveForce = 15f;
+    [SerializeField] private float moveSpeed = 10f;  // скорость движения капсулы
+    [SerializeField] private float rotationSpeed = 120f;  // скорость поворота капсулы
+    [SerializeField] private float diveForce = 15f;
+    [SerializeField] private float vaterResistance = 25f;
 
-    public float vaterResistance = 25f;
+    private VariableJoystick variableJoystick;
 
-    public VariableJoystick variableJoystick;
-
-    private Rigidbody rb;  // ссылка на компонент Rigidbody
+    private Rigidbody rb;
     private DiveBooster boost;
-    //private float originalRotation; // исходное значение поворота капсулы
 
     private float vertical;
     private float horizontal;
+
+    
     private void Awake()
     {
-        // получаем ссылку на компонент Rigidbody
         rb = GetComponent<Rigidbody>();
-        //originalRotation = transform.rotation.z;
         boost = GetComponent<DiveBooster>();
     }
 
     private void Update()
     {
-        
         if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
         {
            vertical = Input.GetAxis("Vertical");
            horizontal = Input.GetAxis("Horizontal");
-
         }
         else
         {
             vertical = variableJoystick.Vertical;
             horizontal = variableJoystick.Horizontal;
         }
-         
     }
 
         private void FixedUpdate()

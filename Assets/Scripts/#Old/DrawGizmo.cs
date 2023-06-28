@@ -23,7 +23,7 @@ public class DrawGizmo : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(transform.childCount);
+        Debug.Log (transform.childCount);
         
     }
 

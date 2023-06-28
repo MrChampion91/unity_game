@@ -1,41 +1,36 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Wallet : MonoBehaviour
 {
+    private int coins;
+    //private int almaz;
 
-    public static int coins;
-    [SerializeField] private TextMeshProUGUI treasureText;
+    [SerializeField] private TextMeshProUGUI coinsText;
+    //[SerializeField] private TextMeshProUGUI almazText;
 
-    private SaveGame saveGameInstance; //ссылка на загрузчик
     void Start()
     {
-        saveGameInstance = SaveGame.Instance;
         coins = loadCoins();
-        treasureText.text = "Coins: " + Wallet.coins.ToString(); // Отображаем количество монеток
+        coinsText.text = "Coins: " + coins.ToString();
     }
-
 
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "Treasure")
         {
             coins += collision.gameObject.GetComponent<Treasure>().coins;
-            treasureText.text = "Coins: " + Wallet.coins.ToString(); // Отображаем количество монеток
+            coinsText.text = "Coins: " + coins.ToString();
         }
     }
 
-    public int loadCoins() //загрузка кошелька
+    private int loadCoins() //load from file
     {
-        int score = saveGameInstance.GetScore();
+        int score = SaveGame.Instance.GetSaveData().coins;
         return score;
     }
-
-    public void clear()
+    public int GetCoins()
     {
-    treasureText.text = "Coins: " + Wallet.coins.ToString();
+        return coins;
     }
 }

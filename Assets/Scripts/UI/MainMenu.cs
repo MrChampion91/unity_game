@@ -13,7 +13,8 @@ public class MainMenu : MonoBehaviour
     private string playScene = "MainMenu";  // Задайте номер сцены для загрузки, когда нажмете кнопку "Играть"
 
     public GameObject dropdownMenu; //высплывающее меню 
-    public GameObject dropdownMenu2; //высплывающее меню 
+    public GameObject dropdownMenu2; //высплывающее меню 2
+
     public AudioMixer audioMixer;   //весь аудиомиксер для регулирования уровнем громкости
     public Slider volumeSlider; //slider для контроля громкости
 
@@ -40,60 +41,57 @@ public class MainMenu : MonoBehaviour
 
     }
 
-    public void SelectLevel1()// Вызывается, когда пользователь нажимает кнопку "Играть"
+    public void SelectLevel1()
     {
         playScene = "SandBox";
-        OnSelectLevelButtonClicked();
+        SelectLevelButton();
     }
-    public void SelectLevel2()// Вызывается, когда пользователь нажимает кнопку "Играть"
+    public void SelectLevel2()
     {
-        playScene = "IronSourceDemo";
-        OnSelectLevelButtonClicked();
+        playScene = "SandBox";
+        SelectLevelButton();
     }
 
-    public void OnPlayButtonClicked()// Вызывается, когда пользователь нажимает кнопку "Играть"
+    public void PlayButton()
     {
         // Загрузить сцену с заданным индексом
         SceneManager.LoadScene(playScene);
     }
 
 
-    public void OnMainMenuButtonClicked()// Вызывается, когда пользователь нажимает кнопку "глав меню"
+    public void MainMenuButton()// Вызывается, когда пользователь нажимает кнопку "глав меню"
     {
         // Загрузить сцену с заданным индексом
         Time.timeScale = 1f;
         //проверка есть ли кошелек
-        
-            SaveGame.Instance.UpdateScore(Wallet.coins);
-        
+
+        //TODO save game
+        //SaveGame.Instance.SaveData(Wallet.coins);
+
         SceneManager.LoadScene("MainMenu");
     }
 
-    // Вызывается, когда пользователь нажимает кнопку "Выход"
-    public void OnQuitButtonClicked()
+    public void QuitButton()
     {
-        // Выйти из игры
         Debug.Log("Quit");
         Application.Quit();
     }
 
-    public void OnOptionsButtonClicked()//открытие 1 всплывающего меню
+    public void OptionsButton()//открытие 1 всплывающего меню
     {
         if (dropdownMenu.activeSelf)
         {
             dropdownMenu.SetActive(false);
             return;
         }
-        
         else
         {
             dropdownMenu.SetActive(true);
             return;
         }
-
     }
 
-    public void OnSelectLevelButtonClicked()//открытие выбора уровня
+    public void SelectLevelButton()
     {
         StartCoroutine(OpenLevelDropdown());
     }
@@ -111,25 +109,13 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private void WaitForSeconds(float v)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void SetVolume()// Устанавливаем громкость в соответствии со значением слайдера
+    public void SetVolume()
     {
         audioMixer.SetFloat("MyExposedParam", volumeSlider.value);
         Debug.Log(volumeSlider.value);
     }
 
-    //пауза и продолжить игру.
-
-    private void ResumeGame()
-    {
-        Time.timeScale = 1f;
-        OnOptionsButtonClicked();
-        audioListener.enabled = true;
-    }
+    //pause and continue game
     public void PauseButton()
     {
         if (Time.timeScale == 0f) ResumeGame();
@@ -138,7 +124,13 @@ public class MainMenu : MonoBehaviour
     private void PauseGame()
     {
         Time.timeScale = 0f;
-        OnOptionsButtonClicked();
+        OptionsButton();
         audioListener.enabled = false;
+    }
+    private void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        OptionsButton();
+        audioListener.enabled = true;
     }
 }
