@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-[CreateAssetMenu(fileName = "NewData", menuName = "ScriptableObjects/NewData")]
+[CreateAssetMenu(fileName = "NewData", menuName = "ScriptableObjects/NewData", order =51)]
 public class NEW_Data : ScriptableObject
 {
     public int intValue;

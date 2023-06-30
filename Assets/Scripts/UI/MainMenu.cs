@@ -10,35 +10,30 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private string playScene = "MainMenu";  // Задайте номер сцены для загрузки, когда нажмете кнопку "Играть"
+    private string playScene = "MainMenu";  // start scene
 
-    public GameObject dropdownMenu; //высплывающее меню 
-    public GameObject dropdownMenu2; //высплывающее меню 2
+    public GameObject dropdownMenu;
+    public GameObject dropdownMenu2;
 
-    public AudioMixer audioMixer;   //весь аудиомиксер для регулирования уровнем громкости
-    public Slider volumeSlider; //slider для контроля громкости
+    public AudioMixer audioMixer;//mixer
+    public Slider volumeSlider; //slider for volume
 
-    private float currentVolume;    
-    private AudioListener audioListener;//ухо на камере
+    private float currentVolume; 
 
-    private static SaveGame instance;
+    private AudioListener audioListener;//camera ear for teke it off in pause
+    private static SaveGame instance;   //for saveing game
 
     void Start()
     {
-        //ухо на камере
         audioListener = Camera.main.GetComponent<AudioListener>();
-
         if (!audioMixer)
         {
             return;
-            // Получаем текущее значение уровня громкости из AudioMixer
             //float currentVolume;
             bool result = audioMixer.GetFloat("MyExposedParam", out currentVolume);
 
-            // Устанавливаем значение слайдера
             volumeSlider.value = currentVolume;
         }
-
     }
 
     public void SelectLevel1()
@@ -51,33 +46,31 @@ public class MainMenu : MonoBehaviour
         playScene = "SandBox";
         SelectLevelButton();
     }
+    public void SelectLevel3()
+    {
+        playScene = "SandBox";
+        SelectLevelButton();
+    }
 
     public void PlayButton()
     {
-        // Загрузить сцену с заданным индексом
         SceneManager.LoadScene(playScene);
     }
-
-
-    public void MainMenuButton()// Вызывается, когда пользователь нажимает кнопку "глав меню"
-    {
-        // Загрузить сцену с заданным индексом
-        Time.timeScale = 1f;
-        //проверка есть ли кошелек
-
-        //TODO save game
-        //SaveGame.Instance.SaveData(Wallet.coins);
-
-        SceneManager.LoadScene("MainMenu");
-    }
-
     public void QuitButton()
     {
         Debug.Log("Quit");
         Application.Quit();
     }
 
-    public void OptionsButton()//открытие 1 всплывающего меню
+    public void MainMenuButton()
+    {
+        Time.timeScale = 1f;
+        //TODO save game
+        //SaveGame.Instance.SaveData(Wallet.coins);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OptionsButton()
     {
         if (dropdownMenu.activeSelf)
         {
